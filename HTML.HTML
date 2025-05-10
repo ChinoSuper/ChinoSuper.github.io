@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Botón Imposible</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      position: relative;
+    }
+
+    /* Texto fijo en la parte superior central */
+    .fixed-text {
+      position: fixed;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.25rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* Contenedor del botón y enlace */
+    .button-container {
+      position: absolute;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Botón */
+    #elusiveButton {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      color: white;
+      background-color: black;
+      border-radius: 10%;
+    }
+
+    .fixed-link {
+       padding: 10px 20px;
+      margin-left: 10px;
+      font-size: 16px;
+      text-decoration: none;
+      color: rgb(255, 255, 255);
+      background-color: rgb(255, 158, 158);
+      border-color:rgb(150, 34, 34);
+      border-radius: 10%;
+      border-style:groove;
+   
+    }
+
+
+    /* Media Queries para dispositivos móviles */
+    @media (max-width: 600px) {
+      .fixed-text {
+        font-size: 1rem;
+      }
+
+      #elusiveButton {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .fixed-link {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="fixed-text">Do you want to darme dinero?</div>
+
+  <div class="button-container" id="buttonContainer">
+    <button id="elusiveButton">No</button>
+    <a href="Si.HTML" class="fixed-link">Si</a>
+  </div>
+
+  <script>
+    const buttonContainer = document.getElementById('buttonContainer');
+    const button = document.getElementById('elusiveButton');
+    const link = document.querySelector('.fixed-link');
+
+    function moveButton() {
+      const containerWidth = button.offsetWidth + link.offsetWidth + 10; // 10px de margen
+      const containerHeight = button.offsetHeight;
+
+      const maxX = window.innerWidth - containerWidth;
+      const maxY = window.innerHeight - containerHeight;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      buttonContainer.style.left = x + 'px';
+      buttonContainer.style.top = y + 'px';
+    }
+
+    // Posicionar inicialmente el botón en el centro
+    window.addEventListener('load', () => {
+      const containerWidth = button.offsetWidth + link.offsetWidth + 10;
+      const containerHeight = button.offsetHeight;
+
+      const initX = (window.innerWidth - containerWidth) / 2;
+      const initY = (window.innerHeight - containerHeight) / 2;
+
+      buttonContainer.style.left = initX + 'px';
+      buttonContainer.style.top = initY + 'px';
+    });
+
+    // Mover el botón al pasar el ratón por encima
+    button.addEventListener('mouseenter', moveButton);
+
+    // Ajustar límites si se redimensiona
+    window.addEventListener('resize', () => {
+      const containerWidth = button.offsetWidth + link.offsetWidth + 10;
+      const containerHeight = button.offsetHeight;
+
+      const maxX = window.innerWidth - containerWidth;
+      const maxY = window.innerHeight - containerHeight;
+
+      let left = parseFloat(buttonContainer.style.left);
+      let top = parseFloat(buttonContainer.style.top);
+
+      if (left > maxX) buttonContainer.style.left = maxX + 'px';
+      if (top > maxY) buttonContainer.style.top = maxY + 'px';
+    });
+  </script>
+</body>
+</html>
